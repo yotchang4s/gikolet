@@ -10,6 +10,7 @@ import org.yotchang4s.android.Listeners._
 import org.yotchang4s.gikolet.board._
 import org.yotchang4s.gikolet.thread.ThreadsFragment
 import org.yotchang4s.ch2.board.Board
+import org.yotchang4s.android.ToastMaster
 
 class GikoletActivity extends FragmentActivity with FragmentGlueProvider {
   private[this] val TAG = getClass.getName
@@ -18,6 +19,8 @@ class GikoletActivity extends FragmentActivity with FragmentGlueProvider {
   private[this] var menuDrawer: MenuDrawer = null
 
   private[this] var activeViewId = 0
+
+  private[this] var finishWaitTime: Option[Long] = None
 
   override def onCreate(savedInstanceState: Bundle) {
     super.onCreate(savedInstanceState)
@@ -67,7 +70,7 @@ class GikoletActivity extends FragmentActivity with FragmentGlueProvider {
     savedInstanceState.putInt(ArgumentKeys.MenuDrawerActiveViewId, activeViewId)
   }
 
-  private def changeFragment[T <: Fragment](fragmentClass: Class[T])(showF: Fragment => Unit = null) {
+  private def changeFragment[T <: Fragment](fragmentClass: Class[T])(showF: Fragment => Unit = null): T = {
     Log.i(TAG, "change fragment")
     val fm = getSupportFragmentManager
     val fragment = fm.findFragmentByTag(fragmentClass.getName)
@@ -93,10 +96,12 @@ class GikoletActivity extends FragmentActivity with FragmentGlueProvider {
     }
 
     tran.commit
+
+    this.fragment.asInstanceOf[T]
   }
 
   def viewThreads(board: Board) {
-    changeFragment(classOf[ThreadsFragment]) { f =>
+    val f = changeFragment(classOf[ThreadsFragment]) { f =>
       val args = Option(f.getArguments).getOrElse(new Bundle)
       args.putSerializable(ArgumentKeys.board, board)
 
@@ -104,6 +109,8 @@ class GikoletActivity extends FragmentActivity with FragmentGlueProvider {
         f.setArguments(args)
       }
     }
+    f.updateThreads
+
     menuDrawerActiveViewChange(findViewById(R.id.menuDrawerThreads))
   }
 
@@ -136,7 +143,23 @@ class GikoletActivity extends FragmentActivity with FragmentGlueProvider {
       }
     }
     if (callSuper) {
-      moveTaskToBack(true)
+      finishWaitTime match {
+        case Some(t) =>
+          if (System.currentTimeMillis - t <= 2000L) {
+            moveTaskToBack(true)
+            finishWaitTime = None
+          } else {
+            finishWait
+          }
+
+        case None =>
+          finishWait
+      }
+
+      def finishWait {
+        finishWaitTime = Some(System.currentTimeMillis)
+        ToastMaster.makeText(this, R.string.terminationNotice, Toast.LENGTH_SHORT).show
+      }
     }
   }
 }
