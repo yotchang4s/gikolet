@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <style name="GikoletTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:actionBarStyle">@style/GikoletTheme.ActionbarStyle</item>
+        <item name="menuDrawerStyle">@style/MenuDrawerStyle</item>
+    </style>
+
+    <style name="GikoletTheme.ActionbarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/actionbarBackground</item>
+    </style>
+
+</resources>

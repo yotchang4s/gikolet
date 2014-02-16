@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Gikolet" />
+
+    <style name="Gikolet.Boards" />
+
+    <style name="Gikolet.Boards.TextView" parent="Gikolet.Widget.TextView.Reverse">
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+</resources>

@@ -1,13 +1,20 @@
+*.ap_
+*.dex
 *.class
-*.log
 
-# sbt specific
-dist/*
-target/
-lib_managed/
-src_managed/
-project/boot/
-project/plugins/project/
+bin/
+gen/
 
-# Scala-IDE specific
-.scala_dependencies
+libs/scala_library.min.jar
+
+local.properties
+project.properties
+
+proguard_cache/
+proguard_cache_conf/
+
+.cache
+
+.classpath
+.project
+.settings/

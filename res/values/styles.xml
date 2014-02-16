@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Gikolet" />
+
+    <style name="Gikolet.Widget">
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+    <style name="Gikolet.Widget.EditText">
+        <item name="android:textColor">@color/windowBackground</item>
+        <item name="android:background">@color/textColor</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="Gikolet.Widget.TextView">
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="Gikolet.Widget.TextView.Reverse">
+        <item name="android:background">@color/textColor</item>
+        <item name="android:textColor">@color/windowBackground</item>
+    </style>
+
+    <style name="Gikolet.Widget.Button">
+        <item name="android:textColor">@color/textBackgroundColor</item>
+        <item name="android:background">@drawable/button_round_corner</item>
+    </style>
+
+    <style name="Gikolet.Widget.GridView">
+        <item name="android:background">@color/windowBackground</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:columnWidth">120dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:horizontalSpacing">1dp</item>
+        <item name="android:numColumns">auto_fit</item>
+        <item name="android:stretchMode">columnWidth</item>
+        <item name="android:verticalSpacing">1dp</item>
+    </style>
+
+    <style name="Gikolet.Widget.ListView"></style>
+
+</resources>
