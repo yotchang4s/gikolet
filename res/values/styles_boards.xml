@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="Gikolet" />
-
     <style name="Gikolet.Boards" />
 
-    <style name="Gikolet.Boards.TextView" parent="Gikolet.Widget.TextView.Reverse">
+    <style name="Gikolet.Boards.TextView" parent="Gikolet.Widget.TextView">
+        <item name="android:background">@drawable/text_pressed</item>
         <item name="android:focusable">false</item>
         <item name="android:focusableInTouchMode">false</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        
+    </style>
+
+    <style name="Gikolet.Boards.GridView" parent="Gikolet.Widget.GridView">
+        <item name="android:background">@color/boarder</item>
     </style>
 
 </resources>

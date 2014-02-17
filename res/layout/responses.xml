@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <org.yotchang4s.android.ObservableGridView
-        android:id="@+id/boardsGridview"
-        style="@style/Gikolet.Boards.GridView"
+    <ListView
+        android:id="@+id/responseListview"
+        style="@style/Gikolet.Widget.ListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

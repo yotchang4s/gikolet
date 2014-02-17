@@ -3,12 +3,12 @@
 
     <color name="md__transparent">#00000000</color>
     <color name="md__defaultBackground">#069</color>
-    <color name="windowBackground">#09c</color>
-    <color name="textBackgroundColor">#09c</color>
-    <color name="textColor">#fff</color>
-    <color name="stickyItemText">#09c</color>
-    <color name="actionbarBackground">#09c</color>
-    <color name="pressedBackground">#069</color>
-    <color name="disableBackground">#a9a9a9</color>
+    <color name="windowBackground">#EFEFEF</color>
+    <color name="textBackgroundColor">#dcdcdc</color>
+    <color name="textColor">#696969</color>
+    <color name="actionbarBackground">#EFEFEF</color>
+    <color name="pressedBackground">#a9a9a9</color>
+    <color name="disableBackground">#d3d3d3</color>
 
+    <color name="boarder">#c0c0c0</color>
 </resources>

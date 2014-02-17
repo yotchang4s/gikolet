@@ -5,21 +5,25 @@
 
     <style name="Gikolet.Widget">
         <item name="android:textAppearance">?android:textAppearanceLarge</item>
-        <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/textColor</item>
     </style>
 
     <style name="Gikolet.Widget.EditText">
         <item name="android:textColor">@color/windowBackground</item>
         <item name="android:background">@color/textColor</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
     </style>
 
     <style name="Gikolet.Widget.TextView">
         <item name="android:textAppearance">?android:textAppearanceLarge</item>
-        <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/textColor</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
     </style>
 
     <style name="Gikolet.Widget.TextView.Reverse">

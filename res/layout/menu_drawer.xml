@@ -32,7 +32,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@android:drawable/ic_menu_search"
-            android:text="@string/boards" />
+            android:text="@string/threads" />
+
+        <TextView
+            android:id="@+id/menuDrawerResponses"
+            style="@style/MenuDrawer.Widget.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@android:drawable/ic_menu_search"
+            android:text="@string/responses" />
     </LinearLayout>
 
 </ScrollView>

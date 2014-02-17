@@ -3,6 +3,8 @@
 
     <string name="appName">Gikolet</string>
     <string name="boards">板一覧</string>
+    <string name="threads">スレッド一覧</string>
+    <string name="responses">スレ</string>
     <string name="accessFailure">接続に失敗しました</string>
     <string name="internalError">内部エラーです</string>
     <string name="terminationNotice">もう一度Backキーを押すと終了します</string>

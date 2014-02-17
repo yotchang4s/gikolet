@@ -1,20 +1,20 @@
 package org.yotchang4s.ch2.board
 
 import java.io._
-
 import scala.collection._
-
 import org.yotchang4s.scala.Loan
 import org.yotchang4s.scala.Loan._
 import org.yotchang4s.ch2._
+import org.yotchang4s.ch2.thread.Thread
 import org.yotchang4s.http.Http
+import java.util.regex.Pattern
 
 private[ch2] trait BoardComponentImpl extends BoardComponent {
 
   class BoardRepositoryImpl extends BoardRepository {
 
-    private val categoryRegex = """^<BR><BR><B>(.+)</B><BR>$""".r
-    private val boardRegex = """^<A HREF=http://(.+)/(.+)/>(.+)</A><br>$""".r
+    private val categoryRegex = Pattern.compile("""^<BR><BR><B>(.+)</B><BR>$""")
+    private val boardRegex = Pattern.compile("""^<A HREF=http://(.+)/(.+)/>(.+)</A>(<br>)?$""")
 
     def findCategories(implicit config: Ch2Config): Either[Ch2Exception, List[Category]] = {
       try {
@@ -29,12 +29,18 @@ private[ch2] trait BoardComponentImpl extends BoardComponent {
         val categories = mutable.LinkedHashMap[String, mutable.ListBuffer[Board]]()
 
         for (reader <- Loan(new BufferedReader(response.asReader("MS932")))) {
-          Iterator.continually(reader.readLine).takeWhile(_ != null).foreach { line =>
-            line match {
-              case categoryRegex(category) =>
-                nowCategory = category
+          Iterator.continually(reader.readLine).takeWhile(null !=).foreach { line =>
+            val categoryMacher = categoryRegex.matcher(line)
+            if (categoryMacher.find) {
+              nowCategory = categoryMacher.group(1)
 
-              case boardRegex(host, key, name) if (nowCategory != null) =>
+            } else {
+              val boardMatcher = boardRegex.matcher(line)
+              if (nowCategory != null && boardMatcher.find) {
+                val host = boardMatcher.group(1)
+                val key = boardMatcher.group(2)
+                val name = boardMatcher.group(3)
+
                 val cs = categories.get(nowCategory) match {
                   case Some(x) => x
                   case None =>
@@ -43,8 +49,10 @@ private[ch2] trait BoardComponentImpl extends BoardComponent {
                     l
                 }
                 cs += new BoardImpl(BoardId(host, key), name)
-              case x =>
+
+              } else if(line.isEmpty){
                 nowCategory = null
+              }
             }
           }
         }
@@ -67,4 +75,9 @@ private[ch2] class CategoryImpl(val identity: CategoryId, boards: immutable.List
 
 private[ch2] class BoardImpl(
   val identity: BoardId,
-  val name: String) extends Board
+  val name: String) extends Board {
+
+  def threads(implicit ch2: Ch2, config: Ch2Config): Either[Ch2Exception, List[Thread]] = {
+    ch2.thread.findSubjects(identity)
+  }
+}

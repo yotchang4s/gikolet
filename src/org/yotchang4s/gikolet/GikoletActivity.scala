@@ -11,6 +11,8 @@ import org.yotchang4s.gikolet.board._
 import org.yotchang4s.gikolet.thread.ThreadsFragment
 import org.yotchang4s.ch2.board.Board
 import org.yotchang4s.android.ToastMaster
+import org.yotchang4s.gikolet.response.ResponsesFragment
+import org.yotchang4s.ch2.thread.Thread
 
 class GikoletActivity extends FragmentActivity with FragmentGlueProvider {
   private[this] val TAG = getClass.getName
@@ -40,6 +42,11 @@ class GikoletActivity extends FragmentActivity with FragmentGlueProvider {
 
     findViewById(R.id.menuDrawerThreads).onClicks += { v =>
       changeFragment(classOf[ThreadsFragment])()
+      menuDrawerActiveViewChange(v)
+    }
+
+    findViewById(R.id.menuDrawerResponses).onClicks += { v =>
+      changeFragment(classOf[ResponsesFragment])()
       menuDrawerActiveViewChange(v)
     }
 
@@ -89,6 +96,7 @@ class GikoletActivity extends FragmentActivity with FragmentGlueProvider {
         f
       case _ =>
         val f = Fragment.instantiate(this, fragmentClass.getName, null)
+        f.setArguments(new Bundle)
         if (showF != null) showF(f)
         //tran.add(android.R.id.content, f, fragmentClass.getName)
         tran.add(android.R.id.content, f, fragmentClass.getName)
@@ -102,16 +110,26 @@ class GikoletActivity extends FragmentActivity with FragmentGlueProvider {
 
   def viewThreads(board: Board) {
     val f = changeFragment(classOf[ThreadsFragment]) { f =>
-      val args = Option(f.getArguments).getOrElse(new Bundle)
+      val args = f.getArguments
       args.putSerializable(ArgumentKeys.board, board)
+    }
+    f.updateThreads
+
+    menuDrawerActiveViewChange(findViewById(R.id.menuDrawerThreads))
+  }
+
+  def viewResponses(thread: Thread) {
+    val f = changeFragment(classOf[ResponsesFragment]) { f =>
+      val args = Option(f.getArguments).getOrElse(new Bundle)
+      args.putSerializable(ArgumentKeys.thread, thread)
 
       if (f.getArguments == null) {
         f.setArguments(args)
       }
     }
-    f.updateThreads
+    f.updateResponses
 
-    menuDrawerActiveViewChange(findViewById(R.id.menuDrawerThreads))
+    menuDrawerActiveViewChange(findViewById(R.id.menuDrawerResponses))
   }
 
   private def menuDrawerActiveViewChange(v: View) {

@@ -5,4 +5,5 @@ object ArgumentKeys {
   val MainFragmentClassName = "MainFragmentClassName"
 
   val board = "Board"
+  val thread = "Thread"
 }

@@ -5,13 +5,16 @@ import android.widget._
 import android.content.Context
 import org.yotchang4s.ch2.board._
 import org.yotchang4s.ch2.thread.Thread
-
 import org.yotchang4s.gikolet.R
+import org.apache.commons.lang3.StringEscapeUtils
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class ThreadAdapter(context: Context) extends BaseAdapter {
   private[this] val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE).asInstanceOf[LayoutInflater]
 
   private[this] var threads: List[Thread] = Nil
+  private[this] val format: SimpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日(E) kk:mm:ss")
 
   def setThreads(threads: List[Thread]) {
     this.threads = if (threads != null) threads else Nil
@@ -28,18 +31,27 @@ class ThreadAdapter(context: Context) extends BaseAdapter {
   }
 
   override def getView(position: Int, convertView: View, parent: ViewGroup): View = {
-    val view =
+    val viewGroup =
       if (convertView == null) {
         inflater.inflate(R.layout.threads_thread, null, false)
       } else {
         convertView
       }
-    val textView = view.asInstanceOf[TextView]
+
+    val threadTitleTextView = viewGroup.findViewById(R.id.threadTitle).asInstanceOf[TextView]
+    val threadCreatedDateTextView = viewGroup.findViewById(R.id.threadCreatedDate).asInstanceOf[TextView]
+    val threadCountTextView = viewGroup.findViewById(R.id.threadResponseCount).asInstanceOf[TextView]
 
     val thread = getThreads(position)
 
-    textView.setText(thread.subject)
+    threadTitleTextView.setText(StringEscapeUtils.unescapeXml(thread.subject))
 
-    textView
+    val date = new Date((thread.identity.value._2 + "000").toLong)
+    val dateString = format.format(date)
+    threadCreatedDateTextView.setText(dateString)
+
+    threadCountTextView.setText(thread.resCount.toString)
+
+    viewGroup
   }
 }

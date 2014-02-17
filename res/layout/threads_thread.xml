@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/Gikolet.Boards.TextView"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Gikolet.Threads"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/threadTitle"
+        style="@style/Gikolet.Threads.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/threadCreatedDate"
+            style="@style/Gikolet.Threads.CreatedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left" />
+
+        <TextView
+            android:id="@+id/threadResponseCount"
+            style="@style/Gikolet.Threads.Count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right" />
+    </FrameLayout>
+
+</LinearLayout>

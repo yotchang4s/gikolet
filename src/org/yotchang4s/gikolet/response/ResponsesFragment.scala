@@ -1,4 +1,4 @@
-package org.yotchang4s.gikolet.thread
+package org.yotchang4s.gikolet.response
 
 import scala.concurrent._
 import android.os.Bundle
@@ -6,35 +6,28 @@ import android.util.Log
 import android.view._
 import android.widget.AbsListView._
 import android.widget._
-
 import org.yotchang4s.android._
 import org.yotchang4s.android.Listeners._
 import org.yotchang4s.ch2._
 import org.yotchang4s.ch2.board._
 import org.yotchang4s.ch2.Ch2Exception.UnknownError
-
 import org.yotchang4s.gikolet._
 import org.yotchang4s.gikolet.GikoletConfig.config
+import org.yotchang4s.ch2.thread.Thread
 
-class ThreadsFragment extends AbstractFragment {
+class ResponsesFragment extends AbstractFragment {
 
   private[this] var listView: Option[ListView] = None
-  private[this] var threadAdapter: Option[ThreadAdapter] = None
+  private[this] var responseAdapter: Option[ResponseAdapter] = None
 
   setRetainInstance(true)
 
   protected override def onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle): View = {
-    val view = inflater.inflate(R.layout.threads, container, false)
+    val view = inflater.inflate(R.layout.responses, container, false)
 
-    val lv = view.findViewById(R.id.threadListview).asInstanceOf[ListView]
+    val lv = view.findViewById(R.id.responseListview).asInstanceOf[ListView]
 
     lv.onItemClicks += { (parent, view, position, id) =>
-      for {
-        a <- threadAdapter
-        p <- fragmentGlueProvider
-      } {
-        p.viewResponses(a.getThreads(position))
-      }
     }
 
     listView = Some(lv)
@@ -49,18 +42,18 @@ class ThreadsFragment extends AbstractFragment {
     listView = None
   }
 
-  def updateThreads {
+  def updateResponses {
 
-    val board = getArguments match {
+    val thread = getArguments match {
       case null =>
         None
       case x =>
-        val board = x.getSerializable(ArgumentKeys.board).asInstanceOf[Board]
-        Some(board)
+        val thread = x.getSerializable(ArgumentKeys.thread).asInstanceOf[Thread]
+        Some(thread)
     }
 
-    threadAdapter.foreach { a =>
-      a.setThreads(Nil)
+    responseAdapter.foreach { a =>
+      a.setResponses(Nil)
       a.notifyDataSetChanged
     }
 
@@ -68,8 +61,8 @@ class ThreadsFragment extends AbstractFragment {
     import ExecutionContext.Implicits.global
 
     val f = future {
-      board match {
-        case Some(b) => Ch2.thread.findSubjects(b.identity)
+      thread match {
+        case Some(t) => Ch2.response.findResponses(t.identity)
         case None => Left(new Ch2Exception(UnknownError))
       }
     }
@@ -78,12 +71,12 @@ class ThreadsFragment extends AbstractFragment {
       case Right(t) =>
         listView.foreach { v =>
           import scala.collection.convert.WrapAsJava._
-          val adapter = new ThreadAdapter(getActivity.getApplicationContext)
+          val adapter = new ResponseAdapter(getActivity.getApplicationContext)
 
-          adapter.setThreads(t)
+          adapter.setResponses(t._2)
           adapter.notifyDataSetChanged
 
-          threadAdapter = Some(adapter)
+          responseAdapter = Some(adapter)
 
           v.setAdapter(adapter)
         }

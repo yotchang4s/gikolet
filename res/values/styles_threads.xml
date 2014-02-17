@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Gikolet.Threads">
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+    <style name="Gikolet.Threads.Title" parent="Gikolet.Widget.TextView">
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+    </style>
+
+    <style name="Gikolet.Threads.TextView" parent="Gikolet.Widget.TextView">
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+    </style>
+
+    <style name="Gikolet.Threads.CreatedDate" parent="Gikolet.Threads.TextView">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Gikolet.Threads.Count" parent="Gikolet.Threads.TextView">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Gikolet.Threads.GridView" parent="Gikolet.Threads.TextView">
+        <item name="android:background">@color/boarder</item>
+    </style>
+
+</resources>

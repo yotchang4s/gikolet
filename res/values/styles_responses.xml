@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Gikolet.Responses" />
+
+    <style name="Gikolet.Responses.Body" parent="Gikolet.Widget.TextView">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#000</item>
+    </style>
+
+</resources>
